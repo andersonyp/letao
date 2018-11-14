@@ -43,7 +43,14 @@ $(function () {
                    }
                }
             }
-        }
+        },
+
+        // 2-校验时配置图标
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
     })
 
     // 功能2-注册表单校验成功事件
@@ -68,5 +75,10 @@ $(function () {
                 }
             }
         })
+    })
+
+    // 功能3-实现重置表单
+    $("[type='reset']").on("click",function () {
+        $('#form').data('bootstrapValidator').resetForm();
     })
 })
