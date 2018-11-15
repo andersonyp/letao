@@ -17,4 +17,43 @@ $(document).ajaxStop(function () {
     setTimeout(function () {
         NProgress.done();
     },500)
+});
+
+
+$(function () {
+    // 公共功能
+    // 1-导航点击切换功能
+    $('#category').click(function () {
+        // 让下一个兄弟元素切换显示隐藏
+        $(this).next().stop().slideToggle();
+    });
+
+    // 2-左侧菜单列表切换
+    $('.icon_left').click(function () {
+        $('.lt_aside').toggleClass('hidemenu');
+
+        $('.lt_main').toggleClass('hidemenu');
+
+        $('.lt_topbar').toggleClass('hidemenu')
+    })
+
+    // 3-退出功能
+    $('.icon_right').click(function () {
+        $('#logoutModal').modal('show');
+    });
+
+    $('#logoutBtn').click(function () {
+        $.ajax({
+            type: 'get',
+            url: '/employee/employeeLogout',
+            dataType: 'json',
+            success: function (info) {
+                console.log(info);
+
+                if (info.success) {
+                    location.href = "login.html";
+                }
+            }
+        })
+    })
 })
