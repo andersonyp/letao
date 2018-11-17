@@ -30,4 +30,92 @@ $(function () {
             }
         })
     }
+
+    // 2-点击添加按钮,显示模态框
+    $("#addBtn").click(function () {
+        $("#addModal").modal("show");
+
+        $.ajax({
+            type: 'get',
+            url: '/category/queryTopCategoryPaging',
+            data: {
+                page: 1,
+                pageSize: 100
+            },
+            dataType: "json",
+            success: function (info) {
+                console.log(info);
+                $('.dropdown-menu').html( template('cateTmp',info) );
+            }
+        })
+    })
+
+
+    // 3-通过事件委托给下拉列表下的a注册事件
+    $('.dropdown-menu').on('click',"a",function () {
+        var txt = $(this).text();
+
+        $("#dropdownText").text(txt);
+
+        var id = $(this).data('id');
+
+        $("#categoryId").val(id);
+        // $("[name='categoryId']").trigger('input');
+
+        $('#form').data("bootstrapValidator").updateStatus("categoryId", "VALID");
+    })
+
+    // 4-进行文件上传初始化
+    $("#fileupload").fileupload({
+        dataType: 'json',
+        done: function (e,data) {
+            var result = data.result;
+            var picUrl = result.picAddr;
+
+            $('#imgBox img').attr('src',picUrl);
+
+            $('[name="brandLogo"]').val(picUrl);
+
+            $('#form').data("bootstrapValidator").updateStatus("brandLogo", "VALID");
+        }
+    })
+
+    // 5-表单校验
+    $("#form").bootstrapValidator({
+        excluded: [],
+
+        // 配置校验图标
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',    // 校验成功
+            invalid: 'glyphicon glyphicon-remove',  // 校验失败
+            validating: 'glyphicon glyphicon-refresh'  // 校验中
+        },
+
+        // 校验字段
+        fields: {
+            categoryId: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入一级分类'
+                    }
+                }
+            },
+
+            brandName: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入二级分类名称'
+                    }
+                }
+            },
+
+            brandLogo: {
+                validators: {
+                    notEmpty: {
+                        message: '请选择图片'
+                    }
+                }
+            }
+        }
+    })
 })
