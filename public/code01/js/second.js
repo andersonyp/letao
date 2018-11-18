@@ -59,7 +59,8 @@ $(function () {
 
         var id = $(this).data('id');
 
-        $("#categoryId").val(id);
+
+        $("[name='categoryId']").val(id);
         // $("[name='categoryId']").trigger('input');
 
         $('#form').data("bootstrapValidator").updateStatus("categoryId", "VALID");
@@ -117,5 +118,22 @@ $(function () {
                 }
             }
         }
+    })
+
+    // 6-注册表单校验成功事件,阻止默认行为,通过ajax提交数据
+    $('#form').on("success.form.bv",function ( e ) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'post',
+            url: '/category/addSecondCategory',
+            data: $('#form').serialize(),
+            dataType: 'json',
+            success: function (info) {
+                $('#addModal').modal('hide');
+                currentPage = 1;
+                render();
+            }
+        })
     })
 })
