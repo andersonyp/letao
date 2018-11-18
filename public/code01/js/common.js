@@ -48,7 +48,6 @@ $(function () {
             url: '/employee/employeeLogout',
             dataType: 'json',
             success: function (info) {
-                console.log(info);
 
                 if (info.success) {
                     location.href = "login.html";

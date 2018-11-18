@@ -40,7 +40,6 @@ $(function() {
     })
   }
 
-
   // 2. 点击添加按钮, 显示添加模态框
   $('#addBtn').click(function() {
     $('#addModal').modal("show");
@@ -63,7 +62,6 @@ $(function() {
     })
   });
 
-
   // 3. 通过事件委托, 给所有dropdown里面的 a 添加点击事件
   $('.dropdown-menu').on("click", "a", function() {
     // 获取文本, 设置给按钮
@@ -78,8 +76,6 @@ $(function() {
     $('#form').data("bootstrapValidator").updateStatus("brandId", "VALID");
   });
 
-
-
   // 4. 进行文件上传配置
   $('#fileupload').fileupload({
     dataType: "json",
@@ -93,6 +89,8 @@ $(function() {
       // 往数组的最前面追加
       picArr.unshift( picObj );
 
+
+
       // 结构上, 往最前面追加
       $('#imgBox').prepend('<img src="'+ picUrl +'" style="height: 100px" alt="">');
 
@@ -100,6 +98,7 @@ $(function() {
         // 将最前面的保留, 将最后面移除,
         // 移除数组最后一项
         picArr.pop();
+
         // 移除图片结构中最后一个图片, 找最后一个图片类型的元素, 进行删除, 让他自杀
         $('#imgBox img:last-of-type').remove();
       }
