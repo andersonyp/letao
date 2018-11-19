@@ -205,14 +205,11 @@ $(function () {
         // 拼接数据
         var data = $("#form").serialize();
 
-
-        // data += "&picName1="+ picArr[0].picName +"&picAddr1="+  picArr[0].picAddr;
-        // data += "&picName2="+ picArr[1].picName +"&picAddr2="+  picArr[1].picAddr;
-        // data += "&picName3="+ picArr[2].picName +"&picAddr3="+  picArr[2].picAddr;
-
+        // 拼接图片数据
         data += "&picName1=" + picArr[0].picName + "&picAddr1=" + picArr[0].picAddr;
         data += "&picName2=" + picArr[1].picName + "&picAddr2=" + picArr[1].picAddr;
         data += "&picName3=" + picArr[2].picName + "&picAddr3=" + picArr[2].picAddr;
+        // 通过ajax请求后台
         $.ajax({
             type: 'post',
             url: '/product/addProduct',
@@ -225,6 +222,10 @@ $(function () {
 
                 currentPage = 1;
                 render();
+
+                $("#dropdownText").text('请选择二级分类');
+                $("#imgBox img").remove();
+                picArr = [];
             }
         })
 
