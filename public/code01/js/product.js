@@ -223,6 +223,9 @@ $(function () {
                 currentPage = 1;
                 render();
 
+                // 重置表单
+                $("#form").data('bootstrapValidator').resetForm(true);
+
                 $("#dropdownText").text('请选择二级分类');
                 $("#imgBox img").remove();
                 picArr = [];
